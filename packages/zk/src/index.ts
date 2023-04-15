@@ -1,3 +1,2 @@
-import { Add } from './Add.js';
-
-export { Add };
+export { RandomProver, RandomVerifier } from './RandomLib';
+export { PubInput, Random, RandomProof, RandomSmartContract } from './Random';

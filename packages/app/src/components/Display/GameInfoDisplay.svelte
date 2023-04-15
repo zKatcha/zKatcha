@@ -36,7 +36,6 @@
 
   currentDeck.subscribe((value) => {
     _cardsRemaining = value.length.toString();
-    console.log("🚀 | currentDeck.subscribe | _cardsRemaining:", _cardsRemaining);
   });
 
   gameHash.subscribe((value) => {
@@ -49,7 +48,7 @@
       value: _gameState,
     },
     {
-      name: "Game Secret",
+      name: "Game Hash",
       value: _gameHash,
     },
     {

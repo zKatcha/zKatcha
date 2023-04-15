@@ -1,6 +1,6 @@
 <script lang="ts">
   // variables
-
+  import Logo from "../../public/images/Logo.png";
   let modalOpen = false;
 
   function toggleModal() {
@@ -10,7 +10,10 @@
 </script>
 
 <header-wrapper>
-  <header-icon> Minamol </header-icon>
+  <header-logo>
+    <img src={Logo} alt="logo" width="100px" height="100px" />
+    <header-icon>MINAmal VRF</header-icon>
+  </header-logo>
   <header-tabs>
     <header-item>
       <a href="/">Home</a>
@@ -22,6 +25,14 @@
 </header-wrapper>
 
 <style>
+  header-logo {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
   header-wrapper {
     /* Auto layout */
 

@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "test": "mocha",
+    "test": "hardhat test",
     "deploy": "hardhat deploy --network localhost",
     "deploy:scroll_testnet": "hardhat deploy --network scroll_testnet --tags Contract",
     "deploy:mumbai": "hardhat deploy --network mumbai",

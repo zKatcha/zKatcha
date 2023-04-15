@@ -6,6 +6,7 @@ import 'dotenv/config';
 import { ethers } from 'ethers';
 // import ethers from 'ethers'
 import { task } from 'hardhat/config';
+import { HardhatConfig, HttpNetworkHDAccountsConfig } from 'hardhat/types';
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -69,7 +70,6 @@ module.exports = {
       url: 'http://0.0.0.0:8545',
       saveDeployments: true,
       accounts: ACCOUNT,
-      // accounts: [PRIVATE_KEY],
     },
     hardhat: {
       // TODO: Add snapshot block
@@ -102,7 +102,7 @@ module.exports = {
       saveDeployments: true,
     },
     matic: {
-      url: 'https://polygon-rpc.com/',
+      url: 'https://polygon-rpc.com',
       chainId: 137,
       accounts: ACCOUNT,
     },
@@ -256,5 +256,10 @@ module.exports = {
   gasReporter: {
     enabled: true,
     gasPrice: 100,
+  },
+  verify: {
+    etherscan: {
+      apiKey: process.env.ETHERSCAN_API_KEY,
+    },
   },
 };

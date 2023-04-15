@@ -1,5 +1,5 @@
 <p align="center">
-<img src="" width=400/>
+<img src="docs/Logo.png" width=400/>
 
 <p align="center">
 1 Tap Crypto Transactions
@@ -9,7 +9,7 @@
 
 🖥️ Monorepo: <https://github.com/zKatcha/zKatcha>
 
-💡 Live Site: <>
+💡 Live Site: <https://minamalvrf.vercel.app/demo>
 
 ## Installation Guide
 

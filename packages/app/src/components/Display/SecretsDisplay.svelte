@@ -12,46 +12,46 @@
     _secretInfo = value;
   });
 
-  let lines: LineInfo[] = [
+  $: lines = [
     {
       name: "Player 1 Secret",
-      value: "0000000000000000000000",
+      value: _secretInfo.player1?.secret || "-",
     },
     {
       name: "Hash(Player 1 Secret)",
-      value: "0x00000",
+      value: _secretInfo.player1?.hash || "-",
     },
     {
       name: "Player 2 Secret",
-      value: "0",
+      value: _secretInfo.player2.secret || "-",
     },
     {
       name: "Hash(Player 2 Secret)",
-      value: "0x00000",
+      value: _secretInfo.player2.hash || "-",
     },
     {
       name: "Player 3 Secret",
-      value: "0",
+      value: _secretInfo.player3.secret || "-",
     },
     {
       name: "Hash(Player 3 Secret)",
-      value: "0x00000",
+      value: _secretInfo.player3.hash || "-",
     },
     {
       name: "Player 4 Secret",
-      value: "0",
+      value: _secretInfo.player4.secret || "-",
     },
     {
       name: "Hash(Player 4 Secret)",
-      value: "0x00000",
+      value: _secretInfo.player4.hash || "-",
     },
     {
       name: "Dealer Secret",
-      value: "0",
+      value: _secretInfo.dealer.secret || "-",
     },
     {
       name: "Hash(Dealer Secret)",
-      value: "0x00000",
+      value: _secretInfo.dealer.hash || "-",
     },
   ];
 

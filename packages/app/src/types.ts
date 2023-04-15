@@ -21,8 +21,8 @@ export interface DealerHandInfo {
 }
 
 export interface PlayerSecretInfo {
-  secret: string;
-  hash: string;
+  secret?: string;
+  hash?: string;
 }
 
 export interface SecretInfo {

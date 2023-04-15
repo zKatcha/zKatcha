@@ -32,6 +32,11 @@
     _currentRandom = value;
   });
 
+  function generateUserSecret() {
+    let random = Math.floor(Math.random() * 10000);
+    return random;
+  }
+
   function getCard(): Card {
     // Generate Random Number
     let _randomNumber = Math.floor(Math.random() * 100);

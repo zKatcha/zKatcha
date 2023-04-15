@@ -74,7 +74,13 @@ export const currentDeck = writable<Card[]>(defaultDeck);
 export const cardIndex = writable<number>(0);
 
 export const gameInfo = writable<GameInfo>();
-export const secretInfo = writable<SecretInfo>();
+export const secretInfo = writable<SecretInfo>({
+  player1: {},
+  player2: {},
+  player3: {},
+  player4: {},
+  dealer: {},
+});
 export const handInfo = writable<HandInfo>({
   player1: {},
   player2: {},

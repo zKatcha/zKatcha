@@ -48,7 +48,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 16px;
   }
 
   player-hands {

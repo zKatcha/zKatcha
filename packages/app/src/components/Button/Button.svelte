@@ -12,7 +12,6 @@
   import type { Card, HandInfo, SecretInfo } from "../../types";
   import { defaultDeck } from "../../constants";
   import { PubInput, Random, RandomProver } from "@minamal/zk";
-
   import { Field, Poseidon, Proof, SelfProof, isReady } from "snarkyjs";
   import { BigNumber, ethers } from "ethers";
 

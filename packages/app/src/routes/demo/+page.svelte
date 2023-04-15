@@ -55,7 +55,7 @@
     <VerticalStack>
       <title>{gameStateTitle}</title>
       <Board />
-      <!-- <InputBox /> -->
+      <InputBox />
     </VerticalStack>
   </HorizontalStack>
 </section>

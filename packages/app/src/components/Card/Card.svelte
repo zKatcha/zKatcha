@@ -20,13 +20,13 @@
 </script>
 
 <card-container>
-  <card-suit>
-    <!-- {card?.suit} -->
-    {#if card?.suit}
-      <img style={"width: 25px; height: 25px;"} src={suitMap[card?.suit]} alt="" />
-    {/if}
-  </card-suit>
-  <card-value>{card?.value}</card-value>
+  {#if card?.suit}
+    <card-suit>
+      <!-- {card?.suit} -->
+      <img style={"width: 25px; height: 25px;"} src={suitMap[card?.suit]} alt=" " />
+    </card-suit>
+    <card-value>{card?.value}</card-value>
+  {/if}
 </card-container>
 
 <style>
@@ -52,13 +52,24 @@
     flex-grow: 0;
   }
 
+  @keyframes fadeInAnimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   card-suit {
     font-size: 2rem;
     font-weight: bold;
+    animation: fadeInAnimation 0.5s ease-in-out;
   }
 
   card-value {
     font-size: 3rem;
     font-weight: bold;
+    animation: fadeInAnimation 0.5s ease-in-out;
   }
 </style>

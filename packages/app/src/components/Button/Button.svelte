@@ -11,10 +11,10 @@
   } from "../../stores";
   import type { Card, HandInfo, SecretInfo } from "../../types";
   import { defaultDeck } from "../../constants";
-  import { RandomProver } from "@minamal/zk";
+  import { PubInput, Random, RandomProver } from "@minamal/zk";
 
-  import { Field, Proof, SelfProof, isReady } from "snarkyjs";
-  import { ethers } from "ethers";
+  import { Field, Poseidon, Proof, SelfProof, isReady } from "snarkyjs";
+  import { BigNumber, ethers } from "ethers";
 
   let _maxGameStates: number;
   let _gameState: number;
@@ -22,7 +22,9 @@
   let _secretState: SecretInfo;
   let _currentDeck: Card[];
   let _cardIndex: number;
+  let _gameHash: string;
   let _currentRandom: number;
+  let prover: RandomProver;
 
   maxGameStates.subscribe((value) => {
     _maxGameStates = value;
@@ -44,31 +46,72 @@
     _secretState = value;
   });
 
+  gameHash.subscribe((value) => {
+    _gameHash = value;
+  });
+
   function generateUserSecret() {
     let random = Math.floor(Math.random() * 10000);
     return random;
   }
 
-  async function generateHash(secret: number) {
-    let prover = new RandomProver();
+  async function generateHash(secret: number | Field) {
+    prover = new RandomProver();
     await isReady;
     console.log(`Ready`);
     let secretField = new Field(secret);
     let hash = prover.poseidon([secretField]);
+    console.log("🚀 | generateHash | hash:", hash);
+
+    // convert hash to hexstring using ethers
+    let hashHex = ethers.utils.hexlify(BigNumber.from(hash.toString()));
+    console.log("🚀 | generateHash | hashHex:", hashHex);
 
     // let hash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(secret.toString()));
-    return hash;
+    return hashHex;
   }
 
-  function getRandom() {
+  function generateGameHash(
+    player1Hash: string,
+    player2Hash: string,
+    player3Hash: string,
+    player4Hash: string
+  ) {
+    let hash = Poseidon.hash([
+      new Field(player1Hash),
+      new Field(player2Hash),
+      new Field(player3Hash),
+      new Field(player4Hash),
+    ]);
+    let hashHex = ethers.utils.hexlify(BigNumber.from(hash.toString()));
+
+    return hashHex;
+  }
+
+  function getPRandom() {
     return Math.floor(Math.random() * 100);
   }
 
   function getCard(): Card {
     // Generate Random Number
-    let _randomNumber = getRandom();
+    let _randomNumber = getPRandom();
     currentRandom.set(_randomNumber);
     _cardIndex = _randomNumber % _currentDeck.length;
+    cardIndex.set(_cardIndex);
+    let selectedCard: Card | undefined;
+    if (_currentDeck.length > 0) {
+      let spliced = _currentDeck.splice(_cardIndex, 1);
+      currentDeck.set(_currentDeck);
+      selectedCard = spliced[0];
+    } else {
+      selectedCard = { suit: ``, value: `` };
+    }
+    return selectedCard;
+  }
+
+  function getCard2(seed: Field): Card {
+    currentRandom.set(ethers.utils.hexlify(BigNumber.from(seed.toString())));
+    _cardIndex = Number(seed) % _currentDeck.length;
     cardIndex.set(_cardIndex);
     let selectedCard: Card | undefined;
     if (_currentDeck.length > 0) {
@@ -87,10 +130,6 @@
     // Mock Code (Update Game Board)
     let newHandState: HandInfo;
     let newSecretState: SecretInfo;
-    let newCard;
-    if (_gameState > 6) {
-      newCard = getCard();
-    }
 
     if (_gameState == 1) {
       let secret = generateUserSecret();
@@ -134,58 +173,140 @@
       secretInfo.set(newSecretState);
     } else if (_gameState == 6) {
       console.log("INITIALIZE GAME");
-      gameHash.set(ethers.utils.keccak256(ethers.utils.toUtf8Bytes("LOL")));
+
+      gameHash.set(
+        generateGameHash(
+          _secretState.player1.hash as string,
+          _secretState.player2.hash as string,
+          _secretState.player3.hash as string,
+          _secretState.player4.hash as string
+        ).toString()
+      );
     } else if (_gameState == 7) {
+      let random = prover.createRandom(
+        new Field(_secretState.player1.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         player1: { card1: newCard },
       };
+
+      // Generate Proof
+      const pubIn = new PubInput({
+        CombinedRandomness: new Field(_gameHash),
+        Nonce: new Field(0),
+        GenerateRandomOutput: random,
+        UserHashedSecret: new Field(_secretState.player1.hash as string),
+      });
     } else if (_gameState == 8) {
+      let random = prover.createRandom(
+        new Field(_secretState.player2.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         player2: { card1: newCard },
       };
     } else if (_gameState == 9) {
+      let random = prover.createRandom(
+        new Field(_secretState.player3.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         player3: { card1: newCard },
       };
     } else if (_gameState == 10) {
+      let random = prover.createRandom(
+        new Field(_secretState.player4.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         player4: { card1: newCard },
       };
     } else if (_gameState == 11) {
+      let random = prover.createRandom(
+        new Field(_secretState.player1.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         player1: { ..._handState.player1, card2: newCard },
       };
     } else if (_gameState == 12) {
+      let random = prover.createRandom(
+        new Field(_secretState.player2.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         player2: { ..._handState.player2, card2: newCard },
       };
     } else if (_gameState == 13) {
+      let random = prover.createRandom(
+        new Field(_secretState.player3.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         player3: { ..._handState.player3, card2: newCard },
       };
     } else if (_gameState == 14) {
+      let random = prover.createRandom(
+        new Field(_secretState.player4.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         player4: { ..._handState.player4, card2: newCard },
       };
     } else if (_gameState == 15) {
+      let random = prover.createRandom(
+        new Field(_secretState.dealer.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         dealer: { card1: newCard },
       };
     } else if (_gameState == 16) {
+      let random = prover.createRandom(
+        new Field(_secretState.dealer.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         dealer: { ..._handState.dealer, card2: newCard },
       };
     } else if (_gameState == 17) {
+      let random = prover.createRandom(
+        new Field(_secretState.dealer.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         dealer: {
@@ -194,6 +315,12 @@
         },
       };
     } else if (_gameState == 18) {
+      let random = prover.createRandom(
+        new Field(_secretState.dealer.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         dealer: {
@@ -202,6 +329,12 @@
         },
       };
     } else if (_gameState == 19) {
+      let random = prover.createRandom(
+        new Field(_secretState.dealer.secret as string),
+        new Field(_gameHash),
+        new Field(0)
+      );
+      let newCard = getCard2(random);
       newHandState = {
         ..._handState,
         dealer: {

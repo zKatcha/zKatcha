@@ -1,3 +1,5 @@
+import { Field, Struct } from "snarkyjs";
+
 export interface LineInfo {
   name: string;
   value: string;
@@ -48,3 +50,10 @@ export interface GameInfo {
   cardsRemaining: string;
   cardIndex: string;
 }
+
+export class PubInput extends Struct({
+  CombinedRandomness: Field,
+  Nonce: Field,
+  GenerateRandomOutput: Field,
+  UserHashedSecret: Field,
+}) {}

@@ -70,7 +70,8 @@ export const gameState = writable(0);
 export const maxGameStates = readable(19);
 export const gameHash = writable<string>("-");
 
-export const currentRandom = writable<number>(0);
+export const currentRandom = writable<string>("-");
+export const currentProof = writable();
 export const currentDeck = writable<Card[]>(defaultDeck);
 export const cardIndex = writable<number>(0);
 

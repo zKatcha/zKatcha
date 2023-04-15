@@ -5,6 +5,7 @@
   import PlayerHand from "../../components/Card/PlayerHand.svelte";
   import GameInfoDisplay from "../../components/Display/GameInfoDisplay.svelte";
   import SecretsDisplay from "../../components/Display/SecretsDisplay.svelte";
+  import InputBox from "../../components/Input/InputBox.svelte";
   import HorizontalStack from "../../components/Stack/HorizontalStack.svelte";
   import VerticalStack from "../../components/Stack/VerticalStack.svelte";
   import { gameState } from "../../stores";
@@ -54,6 +55,7 @@
     <VerticalStack>
       <title>{gameStateTitle}</title>
       <Board />
+      <InputBox />
     </VerticalStack>
   </HorizontalStack>
 </section>

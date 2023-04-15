@@ -14,6 +14,14 @@
 </container>
 
 <style>
+  @keyframes fadeInAnimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   container {
     display: flex;
     flex-direction: row;
@@ -72,5 +80,6 @@
 
     color: #ffffff;
     width: 100%;
+    animation: fadeInAnimation 0.5s ease-in-out;
   }
 </style>

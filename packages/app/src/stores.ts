@@ -3,7 +3,6 @@ import type { Card, GameInfo, HandInfo, SecretInfo } from "./types";
 // import type { EthereumClient } from "@web3modal/ethereum";
 // import type { Web3Modal } from "@web3modal/html";
 import { readable, writable } from "svelte/store";
-import { RandomProver, RandomVerifier} from "@minamal/zk"
 
 // export const ethereumClient = writable<EthereumClient>();
 // export const wagmiClient = writable<Client>();

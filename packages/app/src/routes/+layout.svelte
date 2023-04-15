@@ -5,6 +5,13 @@
   import "@fontsource/courier-prime/700.css"; // Defaults to weight 400.
 
   import TopNavBar from "../components/TopNavBar/TopNavBar.svelte";
+  import { isReady } from "snarkyjs";
+  import { onMount } from "svelte";
+
+  onMount(async () => {
+    await isReady;
+    console.log("isReady");
+  });
 </script>
 
 <!-- Header -->

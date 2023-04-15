@@ -6,12 +6,17 @@
     gameState,
     handInfo,
     maxGameStates,
+    secretInfo,
   } from "../../stores";
-  import type { Card, HandInfo } from "../../types";
+  import type { Card, HandInfo, SecretInfo } from "../../types";
+
+  import { Field, Proof, SelfProof, isReady } from "snarkyjs";
+  import { ethers } from "ethers";
 
   let _maxGameStates: number;
   let _gameState: number;
   let _handState: HandInfo;
+  let _secretState: SecretInfo;
   let _currentDeck: Card[];
   let _cardIndex: number;
   let _currentRandom: number;
@@ -32,9 +37,24 @@
     _currentRandom = value;
   });
 
+  secretInfo.subscribe((value) => {
+    _secretState = value;
+  });
+
   function generateUserSecret() {
     let random = Math.floor(Math.random() * 10000);
     return random;
+  }
+
+  async function generateHash(secret: number) {
+    // let prover = new RandomProver();
+    // await isReady;
+    // console.log(`Ready`);
+    // let secretField = new Field(secret);
+    // let hash = prover.poseidon([secretField]);
+
+    let hash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(secret.toString()));
+    return hash;
   }
 
   function getCard(): Card {
@@ -54,15 +74,27 @@
     return selectedCard;
   }
 
-  gameState.subscribe((value) => {
+  gameState.subscribe(async (value) => {
     _gameState = value;
 
     // Mock Code (Update Game Board)
     let newHandState: HandInfo;
+    let newSecretState: SecretInfo;
     let newCard;
     if (_gameState > 0) {
       newCard = getCard();
     }
+
+    if (_gameState == 1) {
+      let secret = generateUserSecret();
+      let hash = await generateHash(secret);
+      newSecretState = {
+        ..._secretState,
+        player1: { secret: secret.toString(), hash: hash.toString() },
+      };
+      secretInfo.set(newSecretState);
+    }
+
     if (_gameState == 1) {
       newHandState = {
         ..._handState,

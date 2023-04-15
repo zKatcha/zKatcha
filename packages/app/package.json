@@ -35,9 +35,9 @@
 		"vite-plugin-node-polyfills": "^0.7.0"
 	},
 	"dependencies": {
-		"@minamal/zk": "workspace:*",
 		"@fontsource/courier-prime": "^4.5.9",
 		"@fontsource/poppins": "^4.5.10",
+		"@minamal/zk": "workspace:*",
 		"@picocss/pico": "^1.5.7",
 		"@types/pako": "^2.0.0",
 		"@vitejs/plugin-basic-ssl": "^1.0.1",
@@ -46,6 +46,7 @@
 		"@web3modal/html": "^2.2.0",
 		"ethers": "^5.7.2",
 		"pako": "^2.1.0",
+		"snarkyjs": "^0.9.8",
 		"svelte-loading-spinners": "^0.3.4"
 	}
 }

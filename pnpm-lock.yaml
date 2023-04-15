@@ -39,6 +39,9 @@ importers:
       pako:
         specifier: ^2.1.0
         version: 2.1.0
+      random-base64-string:
+        specifier: ^1.0.1
+        version: 1.0.1
       snarkyjs:
         specifier: ^0.9.8
         version: 0.9.8
@@ -11575,6 +11578,10 @@ packages:
       '@iden3/binfileutils': 0.0.11
       fastfile: 0.0.20
       ffjavascript: 0.2.57
+    dev: false
+
+  /random-base64-string@1.0.1:
+    resolution: {integrity: sha512-oDfh16rkL4GlnwdpA347JJodtUOaQpamAt7dRqWeddyZgyh2phZWZcg+3ulQmME7LGTQcMbPWoTUvvDHSyUVaQ==}
     dev: false
 
   /randombytes@2.1.0:

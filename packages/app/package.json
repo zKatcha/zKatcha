@@ -46,6 +46,7 @@
 		"@web3modal/html": "^2.2.0",
 		"ethers": "^5.7.2",
 		"pako": "^2.1.0",
+		"random-base64-string": "^1.0.1",
 		"snarkyjs": "^0.9.8",
 		"svelte-loading-spinners": "^0.3.4"
 	}

@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { RandomProver } from "@minamal/zk";
+  import { Random, RandomProver } from "@minamal/zk";
 
   async function handleClick() {
     console.log("Verify");
     let prover = new RandomProver();
     console.log("generating proof");
-    await prover.setup();
+    await Random.compile();
     console.log("setup");
-    prover.ensureSetup();
   }
 </script>
 

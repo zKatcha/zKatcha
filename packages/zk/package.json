@@ -5,12 +5,6 @@
   "description": "zk package",
   "author": "",
   "license": "Apache-2.0",
-  "keywords": [
-    "mina-zkapp",
-    "mina-zk-app",
-    "mina-dapp",
-    "zkapp"
-  ],
   "type": "module",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",

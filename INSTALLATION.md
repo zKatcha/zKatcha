@@ -9,11 +9,12 @@
 
 1. Prerequisite
    1. Install `pnpm`:
+   2. Requires node v16.18.1
 Using npm: `npm install -g pnpm`
    1. Others: <https://pnpm.io/installation>
 
-2. `pnpm i`
-3. Set web3modal project id in `packages/app/.env` ([obtain a project id for web3modal](https://cloud.walletconnect.com/sign-in))
+1. `pnpm i`
+2. Set web3modal project id in `packages/app/.env` ([obtain a project id for web3modal](https://cloud.walletconnect.com/sign-in))
 
 ## Start the development environment
 

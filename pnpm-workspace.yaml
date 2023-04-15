@@ -2,3 +2,4 @@ packages:
   - "packages/zk"
   - "packages/app"
   - "packages/contracts"
+  - "packages/mina-relayer"

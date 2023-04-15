@@ -1,5 +1,5 @@
 import { Field, Poseidon, Proof, SelfProof, shutdown, verify } from 'snarkyjs';
-import { PubInput, Random } from './Random';
+import { PubInput, Random } from './Random.js';
 
 export class RandomProver {
   public verificationKey: string | undefined;
@@ -62,7 +62,7 @@ export class RandomVerifier {
   }
 
   verifyProof = async (proof: Proof<PubInput>): Promise<boolean> => {
-    const ok = await verify(proof.toJSON(), this.verifierString);
+    const ok = await verify(proof, this.verifierString);
     return ok;
   };
 }

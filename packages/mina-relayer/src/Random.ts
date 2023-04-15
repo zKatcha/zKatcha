@@ -1,17 +1,14 @@
 import {
   Experimental,
   Field,
-  isReady,
   method,
   Poseidon,
   SelfProof,
-  shutdown,
   SmartContract,
   state,
   State,
   Struct,
-  verify,
-} from 'snarkyjs';
+} from "snarkyjs";
 
 export class PubInput extends Struct({
   CombinedRandomness: Field,
@@ -19,64 +16,6 @@ export class PubInput extends Struct({
   GenerateRandomOutput: Field,
   UserHashedSecret: Field,
 }) {}
-
-async function main() {
-  await isReady;
-  const indivSecret = 1234; // or convert this to field
-  const indivSecretField = new Field(indivSecret);
-
-  const combinedRandomness = new Field(1);
-  const nonce = new Field(2);
-  const hashedSecretField = Poseidon.hash([indivSecretField]);
-  const generatedRandomOutput = Poseidon.hash([
-    combinedRandomness,
-    nonce,
-    indivSecretField,
-  ]);
-
-  const pubIn = new PubInput({
-    CombinedRandomness: combinedRandomness,
-    Nonce: nonce,
-    GenerateRandomOutput: generatedRandomOutput,
-    UserHashedSecret: hashedSecretField,
-  });
-
-  console.log(`pubIn: ${JSON.stringify(pubIn)}`);
-
-  const { verificationKey } = await Random.compile();
-
-  const proof = await Random.generateFirst(pubIn, indivSecretField);
-  console.log(`proof: ${JSON.stringify(proof)}`);
-  const okProof = await Random.verify(proof);
-  console.log(`okProof: ${JSON.stringify(okProof)}`);
-
-  const nonce2 = generatedRandomOutput;
-  const generatedRandomOutput2 = Poseidon.hash([
-    combinedRandomness,
-    nonce2,
-    indivSecretField,
-  ]);
-
-  const pubIn2 = new PubInput({
-    CombinedRandomness: combinedRandomness,
-    Nonce: nonce2,
-    GenerateRandomOutput: generatedRandomOutput2,
-    UserHashedSecret: hashedSecretField,
-  });
-
-  const proof2 = await Random.generateSubsequent(
-    pubIn2,
-    proof,
-    indivSecretField
-  );
-  const okProof2 = await Random.verify(proof2);
-  console.log(`okProof2: ${JSON.stringify(okProof2)}`);
-
-  const okVerifyOffChain = await verify(proof2.toJSON(), verificationKey);
-  console.log(`okVerifyOffChain: ${okVerifyOffChain}`);
-
-  await shutdown();
-}
 
 export const Random = Experimental.ZkProgram({
   publicInput: PubInput,
@@ -144,4 +83,3 @@ export class RandomSmartContract extends SmartContract {
     proof.publicInput.UserHashedSecret.assertEquals(userHashedSecret);
   }
 }
-main();

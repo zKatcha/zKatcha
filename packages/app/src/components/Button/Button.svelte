@@ -1,98 +1,131 @@
 <script lang="ts">
-  import { gameState, handInfo, maxGameStates } from "../../stores";
-  import type { HandInfo } from "../../types";
+  import {
+    cardIndex,
+    currentDeck,
+    currentRandom,
+    gameState,
+    handInfo,
+    maxGameStates,
+  } from "../../stores";
+  import type { Card, HandInfo } from "../../types";
 
   let _maxGameStates: number;
   let _gameState: number;
   let _handState: HandInfo;
+  let _currentDeck: Card[];
+  let _cardIndex: number;
+  let _currentRandom: number;
 
   maxGameStates.subscribe((value) => {
     _maxGameStates = value;
   });
+
+  currentDeck.subscribe((value) => {
+    _currentDeck = value;
+  });
+
+  cardIndex.subscribe((value) => {
+    _cardIndex = value;
+  });
+
+  currentRandom.subscribe((value) => {
+    _currentRandom = value;
+  });
+
+  function getCard(): Card {
+    // Generate Random Number
+    console.log("🚀 | getCard | _currentDeck:", _currentDeck.length);
+    _cardIndex = Math.floor(Math.random() * 100) % _currentDeck.length;
+    let selectedCard: Card | undefined;
+    if (_currentDeck.length > 0) {
+      let spliced = _currentDeck.splice(_cardIndex, 1);
+      console.log("🚀 | getCard | spliced:", spliced);
+      selectedCard = spliced[0];
+    } else {
+      selectedCard = { suit: ``, value: `` };
+    }
+    return selectedCard;
+  }
 
   gameState.subscribe((value) => {
     _gameState = value;
 
     // Mock Code (Update Game Board)
     let newHandState: HandInfo;
+    let newCard: Card = getCard();
+    console.log("🚀 | gameState.subscribe | newCard:", newCard);
     if (_gameState == 1) {
       newHandState = {
         ..._handState,
-        player1: { card1: { suit: `S`, value: `A` } },
+        player1: { card1: newCard },
       };
     } else if (_gameState == 2) {
       newHandState = {
         ..._handState,
-        player2: { card1: { suit: `H`, value: `A` } },
+        player2: { card1: newCard },
       };
     } else if (_gameState == 3) {
       newHandState = {
         ..._handState,
-        player3: { card1: { suit: `C`, value: `A` } },
+        player3: { card1: newCard },
       };
     } else if (_gameState == 4) {
       newHandState = {
         ..._handState,
-        player4: { card1: { suit: `D`, value: `A` } },
+        player4: { card1: newCard },
       };
     } else if (_gameState == 5) {
       newHandState = {
         ..._handState,
-        player1: { card1: { suit: `S`, value: `A` }, card2: { suit: `S`, value: `K` } },
+        player1: { ..._handState.player1, card2: newCard },
       };
     } else if (_gameState == 6) {
       newHandState = {
         ..._handState,
-        player2: { card1: { suit: `H`, value: `A` }, card2: { suit: `H`, value: `K` } },
+        player2: { ..._handState.player2, card2: newCard },
       };
     } else if (_gameState == 7) {
       newHandState = {
         ..._handState,
-        player3: { card1: { suit: `C`, value: `A` }, card2: { suit: `C`, value: `K` } },
+        player3: { ..._handState.player3, card2: newCard },
       };
     } else if (_gameState == 8) {
       newHandState = {
         ..._handState,
-        player4: { card1: { suit: `D`, value: `A` }, card2: { suit: `D`, value: `K` } },
+        player4: { ..._handState.player4, card2: newCard },
       };
     } else if (_gameState == 9) {
       newHandState = {
         ..._handState,
-        dealer: { card1: { suit: `S`, value: `8` } },
+        dealer: { card1: newCard },
       };
     } else if (_gameState == 10) {
       newHandState = {
         ..._handState,
-        dealer: { card1: { suit: `S`, value: `8` }, card2: { suit: `S`, value: `9` } },
+        dealer: { ..._handState.dealer, card2: newCard },
       };
     } else if (_gameState == 11) {
       newHandState = {
         ..._handState,
         dealer: {
-          card1: { suit: `S`, value: `8` },
-          card2: { suit: `S`, value: `9` },
-          card3: { suit: `S`, value: `10` },
+          ..._handState.dealer,
+          card3: newCard,
         },
       };
     } else if (_gameState == 12) {
       newHandState = {
         ..._handState,
         dealer: {
-          card1: { suit: `S`, value: `8` },
-          card2: { suit: `S`, value: `9` },
-          card3: { suit: `S`, value: `10` },
-          card4: { suit: `S`, value: `J` },
+          ..._handState.dealer,
+          card4: newCard,
         },
       };
     } else if (_gameState == 13) {
       newHandState = {
         ..._handState,
         dealer: {
-          card1: { suit: `S`, value: `8` },
-          card2: { suit: `S`, value: `9` },
-          card3: { suit: `S`, value: `10` },
-          card4: { suit: `S`, value: `J` },
-          card5: { suit: `S`, value: `Q` },
+          ..._handState.dealer,
+          card5: newCard,
         },
       };
     } else {
@@ -115,6 +148,13 @@
       }
     });
     console.log("Button clicked");
+    console.log(Math.floor(Math.random() * 100) % 52);
+
+    // Set Random
+
+    // Set Card Index
+
+    // Set Cards Left
   }
 </script>
 

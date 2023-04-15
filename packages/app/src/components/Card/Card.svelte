@@ -1,14 +1,31 @@
 <script lang="ts">
   import type { Card } from "../../types";
+  import Club from "../../public/images/club.svg";
+  import Heart from "../../public/images/heart.svg";
+  import Diamond from "../../public/images/diamond.svg";
+  import Spade from "../../public/images/spade.svg";
 
   export let card: Card = {
     suit: "",
     value: "",
   };
+
+  let suitMap = {
+    "": "",
+    C: Club,
+    D: Diamond,
+    H: Heart,
+    S: Spade,
+  };
 </script>
 
 <card-container>
-  <card-suit>{card?.suit}</card-suit>
+  <card-suit>
+    <!-- {card?.suit} -->
+    {#if card?.suit}
+      <img style={"width: 25px; height: 25px;"} src={suitMap[card?.suit]} alt="" />
+    {/if}
+  </card-suit>
   <card-value>{card?.value}</card-value>
 </card-container>
 

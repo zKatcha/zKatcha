@@ -43,17 +43,17 @@
     } else if (_gameState == 6) {
       newHandState = {
         ..._handState,
-        player2: { card1: { suit: `H`, value: `A` }, card2: { suit: `S`, value: `K` } },
+        player2: { card1: { suit: `H`, value: `A` }, card2: { suit: `H`, value: `K` } },
       };
     } else if (_gameState == 7) {
       newHandState = {
         ..._handState,
-        player3: { card1: { suit: `C`, value: `A` }, card2: { suit: `S`, value: `K` } },
+        player3: { card1: { suit: `C`, value: `A` }, card2: { suit: `C`, value: `K` } },
       };
     } else if (_gameState == 8) {
       newHandState = {
         ..._handState,
-        player4: { card1: { suit: `D`, value: `A` }, card2: { suit: `S`, value: `K` } },
+        player4: { card1: { suit: `D`, value: `A` }, card2: { suit: `D`, value: `K` } },
       };
     } else if (_gameState == 9) {
       newHandState = {

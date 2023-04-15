@@ -1,5 +1,4 @@
 <script lang="ts">
-  import logo from "../../public/images/logo.svg";
   // variables
 
   let modalOpen = false;

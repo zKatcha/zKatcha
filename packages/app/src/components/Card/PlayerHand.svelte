@@ -1,15 +1,16 @@
 <script lang="ts">
   import Card from "./Card.svelte";
+  import type { Card as CardType } from "../../types";
 
-  let suit: "D" | "C" | "H" | "S" = "S";
-  let value: "A" | "2" | "3" | "4" | "5" | "6" | "7" | "10" | "J" | "Q" | "K" = "A";
-  let playerName = "Player 1";
+  export let card1: CardType;
+  export let card2: CardType;
+  export let playerName = "Player";
 </script>
 
 <player>
   <player-hand>
-    <Card />
-    <Card />
+    <Card card={card1} />
+    <Card card={card2} />
   </player-hand>
   <player-name>{playerName}</player-name>
 </player>

@@ -1,11 +1,15 @@
 <script lang="ts">
-  let suit: "D" | "C" | "H" | "S" = "S";
-  let value: "A" | "2" | "3" | "4" | "5" | "6" | "7" | "10" | "J" | "Q" | "K" = "A";
+  import type { Card } from "../../types";
+
+  export let card: Card = {
+    suit: "",
+    value: "",
+  };
 </script>
 
 <card-container>
-  <card-suit>{suit}</card-suit>
-  <card-value>{value}</card-value>
+  <card-suit>{card?.suit}</card-suit>
+  <card-value>{card?.value}</card-value>
 </card-container>
 
 <style>

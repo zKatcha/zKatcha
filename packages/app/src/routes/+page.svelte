@@ -9,21 +9,17 @@
 
 <style>
   section {
-    /* Auto layout */
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 0px;
     gap: 16px;
-
     position: relative;
     background: #ffffff;
   }
   title {
     width: auto;
-
     font-family: "Poppins";
     font-style: normal;
     font-weight: 700;

@@ -72,6 +72,8 @@ To develop a zero knowledge library that is able to provide verifiable randomnes
 
 - Just Deploy
 
+### Mina Smart Contract Deployment
+https://berkeley.minaexplorer.com/wallet/B62qrV563ov32iSdzD3BcA9sKVyf7DtVtF7ajxEEntnoCav6cZGuZzp
 
 ### Smart Contract Deployment
 ```

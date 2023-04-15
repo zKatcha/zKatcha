@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.12;
+pragma solidity 0.8.17;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-
 
 struct ChannelSession {
     // The addresses of the participants
@@ -14,13 +13,13 @@ struct ChannelSession {
 }
 
 /**
-  * This contract is meant to be used by participants that uses the library for random number generation, and is essentially a 
-  * store of all final proof state of every user in each session.
-  * It acts as a channel for the participants to submit their final zkVTRF proof, which should then be validated by a verifier.
-  * If everyone is honest, the submitted proof and the final rand number should be valid and exactly similar.
-  * The verifier can be a smart contract on MINA, a relayer or even the participants themself.
-  * 
-  */
+ * This contract is meant to be used by participants that uses the library for random number generation, and is essentially a
+ * store of all final proof state of every user in each session.
+ * It acts as a channel for the participants to submit their final zkVTRF proof, which should then be validated by a verifier.
+ * If everyone is honest, the submitted proof and the final rand number should be valid and exactly similar.
+ * The verifier can be a smart contract on MINA, a relayer or even the participants themself.
+ *
+ */
 contract EvmProofChannel {
     // The key of the mapping is the session id, which can be any arbritrary unique string
     mapping(string => ChannelSession) private channelSessionMapping;
@@ -41,8 +40,8 @@ contract EvmProofChannel {
         ChannelSession storage channelSession = channelSessionMapping[sessionId];
         address currentParticipant = address(0);
         uint currentParticipantIdx = 0;
-        for(uint i = 0; i < channelSession.participants.length; i++) {
-            if(channelSession.participants[i] == msg.sender) {
+        for (uint i = 0; i < channelSession.participants.length; i++) {
+            if (channelSession.participants[i] == msg.sender) {
                 currentParticipant = channelSession.participants[i];
                 currentParticipantIdx = i;
                 require(!channelSession.submitted[i], "Proof already submitted");
@@ -56,13 +55,13 @@ contract EvmProofChannel {
         emit ProofSubmitted(sessionId, msg.sender);
 
         bool allSubmitted = true;
-        for(uint i = 0; i < channelSession.submitted.length; i++) {
-            if(!channelSession.submitted[i]) {
+        for (uint i = 0; i < channelSession.submitted.length; i++) {
+            if (!channelSession.submitted[i]) {
                 allSubmitted = false;
                 break;
             }
         }
-        if(allSubmitted) {
+        if (allSubmitted) {
             emit ProofSubmissionComplete(sessionId);
         }
     }

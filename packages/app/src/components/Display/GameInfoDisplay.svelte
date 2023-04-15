@@ -2,18 +2,38 @@
   import type { LineInfo, SecretInfo } from "../../types";
   import GameInfoDisplay from "./GameInfoDisplay.svelte";
   import GameInfoLine from "./DisplayLine.svelte";
-  import { secretInfo } from "../../stores";
+  import { cardIndex, currentDeck, currentRandom, gameState, secretInfo } from "../../stores";
 
   let _secretInfo: SecretInfo;
+  let _gameState: string = "0";
+  let _currentRandom: string = "0";
+  let _cardsRemaining: string = "0";
+  let _cardIndex: string = "0";
 
   secretInfo.subscribe((value) => {
     _secretInfo = value;
   });
 
-  let lines: LineInfo[] = [
+  gameState.subscribe((value) => {
+    _gameState = value.toString();
+  });
+
+  cardIndex.subscribe((value) => {
+    _cardIndex = value.toString();
+  });
+
+  currentRandom.subscribe((value) => {
+    _currentRandom = value.toString();
+  });
+
+  currentDeck.subscribe((value) => {
+    _cardsRemaining = value.length.toString();
+  });
+
+  $: lines = [
     {
       name: "Turn",
-      value: "0",
+      value: _gameState,
     },
     {
       name: "Game Secret",
@@ -21,15 +41,15 @@
     },
     {
       name: "Current Random",
-      value: "1234",
+      value: _currentRandom,
     },
     {
       name: "Cards Remaining",
-      value: "52",
+      value: _cardsRemaining,
     },
     {
       name: "Card Index",
-      value: "2",
+      value: _cardIndex,
     },
   ];
 </script>

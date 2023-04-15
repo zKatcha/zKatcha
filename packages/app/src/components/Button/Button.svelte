@@ -34,7 +34,10 @@
 
   function getCard(): Card {
     // Generate Random Number
-    _cardIndex = Math.floor(Math.random() * 100) % _currentDeck.length;
+    let _randomNumber = Math.floor(Math.random() * 100);
+    currentRandom.set(_randomNumber);
+    _cardIndex = _randomNumber % _currentDeck.length;
+    cardIndex.set(_cardIndex);
     let selectedCard: Card | undefined;
     if (_currentDeck.length > 0) {
       let spliced = _currentDeck.splice(_cardIndex, 1);
@@ -51,8 +54,10 @@
 
     // Mock Code (Update Game Board)
     let newHandState: HandInfo;
-    let newCard: Card = getCard();
-    console.log("🚀 | gameState.subscribe | newCard:", newCard);
+    let newCard;
+    if (_gameState > 0) {
+      newCard = getCard();
+    }
     if (_gameState == 1) {
       newHandState = {
         ..._handState,
@@ -146,14 +151,6 @@
         return value + 1;
       }
     });
-    console.log("Button clicked");
-    console.log(Math.floor(Math.random() * 100) % 52);
-
-    // Set Random
-
-    // Set Card Index
-
-    // Set Cards Left
   }
 </script>
 

@@ -12,6 +12,12 @@
   let _gameState: number;
 
   let gameStateTitles = [
+    "GENERATE PLAYER 1 SECRET",
+    "GENERATE PLAYER 2 SECRET",
+    "GENERATE PLAYER 3 SECRET",
+    "GENERATE PLAYER 4 SECRET",
+    "GENERATE PLAYER DEALER SECRET",
+    "GENERATE GAME SECRET",
     "PRE-FLOP, PLAYER 1, CARD 1",
     "PRE-FLOP, PLAYER 2, CARD 1",
     "PRE-FLOP, PLAYER 3, CARD 1",
@@ -32,8 +38,6 @@
   gameState.subscribe((value) => {
     _gameState = value;
     gameStateTitle = gameStateTitles[value];
-    console.log("gameState", value);
-    console.log("gameStateTitle", gameStateTitles[value]);
   });
 </script>
 
@@ -42,8 +46,10 @@
     <VerticalStack>
       <SecretsDisplay />
       <GameInfoDisplay />
-      <Button />
-      <ResetButton />
+      <button-stack>
+        <Button />
+        <ResetButton />
+      </button-stack>
     </VerticalStack>
     <VerticalStack>
       <title>{gameStateTitle}</title>
@@ -67,5 +73,14 @@
     align-items: center;
 
     color: #000000;
+  }
+
+  button-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 4px;
   }
 </style>

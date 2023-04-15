@@ -50,7 +50,7 @@ const main = async () => {
     );
 
     // Upload proof to NFT storage
-    const proofBlob = new Blob([JSON.stringify(proof)], { encoding: "utf-8" });
+    const proofBlob = new Blob([JSON.stringify(proof)]);
     const proofCid = await nftStorage.storeBlob(proofBlob);
     console.log("Proof CID: ", proofCid);
 

@@ -34,7 +34,7 @@ const main = async () => {
         const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
         const contract = new ethers.Contract(actualCallbackContractAddr, relayerABI, wallet);
         // Upload proof to NFT storage
-        const proofBlob = new Blob([JSON.stringify(proof)], { encoding: "utf-8" });
+        const proofBlob = new Blob([JSON.stringify(proof)]);
         const proofCid = await nftStorage.storeBlob(proofBlob);
         console.log("Proof CID: ", proofCid);
         // Push result to callback contract

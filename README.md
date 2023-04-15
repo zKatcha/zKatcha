@@ -71,3 +71,36 @@ To develop a zero knowledge library that is able to provide verifiable randomnes
 ### Taiko
 
 - Just Deploy
+
+
+### Smart Contract Deployment
+```
+Ethereum Goerli:
+ChannelContract address: 0x9E737332AE1196212F80627Cbdd8Cc4d70ABe819
+RelayerContract address: 0x3763Dcd5d1463010e9eF873ef60e44B09a534b8C
+
+
+Celo Testnet:
+ChannelContract address: 0x9D1afC5B17c0785061EB1f25BAE3Aa302326c698
+RelayerContract address: 0xb9AC1b6c032A451Bf405bD8b25C8cf8C9ebf9D39
+
+Scroll Testnet:
+ChannelContract address: 0x9D1afC5B17c0785061EB1f25BAE3Aa302326c698
+RelayerContract address: 0xb9AC1b6c032A451Bf405bD8b25C8cf8C9ebf9D39
+
+Polygon Mumbai
+ChannelContract address: 0xa806c850A85A530E5516dA8F8CFC387F0492c16f
+RelayerContract address: 0x9bFd535DbA6F1387526622f9E8fEfF6808AC1Aa6
+
+Gnosis mainnet
+ChannelContract address: 0x9D1afC5B17c0785061EB1f25BAE3Aa302326c698
+RelayerContract address: 0xb9AC1b6c032A451Bf405bD8b25C8cf8C9ebf9D39
+
+Taiko Testnet
+ChannelContract address: 0x9D1afC5B17c0785061EB1f25BAE3Aa302326c698
+RelayerContract address: 0xb9AC1b6c032A451Bf405bD8b25C8cf8C9ebf9D39
+
+Mantle Testnet
+ChannelContract address: 0x9D1afC5B17c0785061EB1f25BAE3Aa302326c698
+RelayerContract address: 0xb9AC1b6c032A451Bf405bD8b25C8cf8C9ebf9D39
+```

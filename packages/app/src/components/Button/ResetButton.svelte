@@ -47,7 +47,7 @@
   button-text {
     /* NEXT */
 
-    width: 36px;
+    width: auto;
     height: 21px;
 
     font-family: "Poppins";

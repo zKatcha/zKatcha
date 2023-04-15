@@ -23,7 +23,7 @@
   let _currentDeck: Card[];
   let _cardIndex: number;
   let _gameHash: string;
-  let _currentRandom: number;
+  let _currentRandom: string;
   let prover: RandomProver;
 
   maxGameStates.subscribe((value) => {
@@ -92,10 +92,11 @@
     return Math.floor(Math.random() * 100);
   }
 
+  // Get card based on pseudo random number
   function getCard(): Card {
     // Generate Random Number
     let _randomNumber = getPRandom();
-    currentRandom.set(_randomNumber);
+    currentRandom.set(_randomNumber.toString());
     _cardIndex = _randomNumber % _currentDeck.length;
     cardIndex.set(_cardIndex);
     let selectedCard: Card | undefined;
@@ -195,12 +196,13 @@
       };
 
       // Generate Proof
-      const pubIn = new PubInput({
-        CombinedRandomness: new Field(_gameHash),
-        Nonce: new Field(0),
-        GenerateRandomOutput: random,
-        UserHashedSecret: new Field(_secretState.player1.hash as string),
-      });
+      // const pubIn = new PubInput({
+      //   CombinedRandomness: new Field(_gameHash),
+      //   Nonce: new Field(0),
+      //   GenerateRandomOutput: random,
+      //   UserHashedSecret: new Field(_secretState.player1.hash as string),
+      // });
+      // console.log("🚀 | gameState.subscribe | pubIn:", pubIn);
     } else if (_gameState == 8) {
       let random = prover.createRandom(
         new Field(_secretState.player2.secret as string),

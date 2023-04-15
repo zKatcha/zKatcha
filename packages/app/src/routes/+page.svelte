@@ -19,7 +19,6 @@
     gap: 16px;
 
     position: relative;
-
     background: #ffffff;
   }
   title {

@@ -1,5 +1,6 @@
 <script lang="ts">
-  import RequestButton from "../../components/Button/Button.svelte";
+  import Button from "../../components/Button/Button.svelte";
+  import ResetButton from "../../components/Button/ResetButton.svelte";
   import Board from "../../components/Card/Board.svelte";
   import PlayerHand from "../../components/Card/PlayerHand.svelte";
   import GameInfoDisplay from "../../components/Display/GameInfoDisplay.svelte";
@@ -41,7 +42,8 @@
     <VerticalStack>
       <SecretsDisplay />
       <GameInfoDisplay />
-      <RequestButton />
+      <Button />
+      <ResetButton />
     </VerticalStack>
     <VerticalStack>
       <title>{gameStateTitle}</title>

@@ -2,7 +2,7 @@
 </script>
 
 <section>
-  <title> Verifiable. Fair. Free</title>
+  <title>Verifiable. Fair. Free</title>
 
   <description>Random number that anyone can generate</description>
 </section>

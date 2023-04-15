@@ -34,12 +34,11 @@
 
   function getCard(): Card {
     // Generate Random Number
-    console.log("🚀 | getCard | _currentDeck:", _currentDeck.length);
     _cardIndex = Math.floor(Math.random() * 100) % _currentDeck.length;
     let selectedCard: Card | undefined;
     if (_currentDeck.length > 0) {
       let spliced = _currentDeck.splice(_cardIndex, 1);
-      console.log("🚀 | getCard | spliced:", spliced);
+      currentDeck.set(_currentDeck);
       selectedCard = spliced[0];
     } else {
       selectedCard = { suit: ``, value: `` };
@@ -129,7 +128,7 @@
         },
       };
     } else {
-      newHandState = {};
+      newHandState = {} as HandInfo;
     }
 
     handInfo.set(newHandState);

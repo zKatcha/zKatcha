@@ -68,6 +68,11 @@
 
     background: #000000;
   }
+
+  info-value-bg::-webkit-scrollbar {
+    display: none;
+  }
+
   info-value {
     font-family: "Courier Prime";
     font-style: normal;

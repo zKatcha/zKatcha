@@ -11,6 +11,7 @@
   } from "../../stores";
   import type { Card, HandInfo, SecretInfo } from "../../types";
   import { defaultDeck } from "../../constants";
+  import { RandomProver } from "@minamal/zk";
 
   import { Field, Proof, SelfProof, isReady } from "snarkyjs";
   import { ethers } from "ethers";
@@ -49,13 +50,13 @@
   }
 
   async function generateHash(secret: number) {
-    // let prover = new RandomProver();
-    // await isReady;
-    // console.log(`Ready`);
-    // let secretField = new Field(secret);
-    // let hash = prover.poseidon([secretField]);
+    let prover = new RandomProver();
+    await isReady;
+    console.log(`Ready`);
+    let secretField = new Field(secret);
+    let hash = prover.poseidon([secretField]);
 
-    let hash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(secret.toString()));
+    // let hash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(secret.toString()));
     return hash;
   }
 

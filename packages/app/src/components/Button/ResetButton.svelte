@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentDeck, defaultDeck, handInfo } from "../../stores";
+  import { currentDeck, defaultDeck, gameState, handInfo } from "../../stores";
   import type { Card, HandInfo } from "../../types";
 
   let _maxGameStates: number;
@@ -13,6 +13,7 @@
     console.log("Button clicked");
     currentDeck.set(defaultDeck);
     handInfo.set({} as HandInfo);
+    gameState.set(0);
   }
 </script>
 

@@ -2,13 +2,21 @@
   import type { LineInfo, SecretInfo } from "../../types";
   import GameInfoDisplay from "./GameInfoDisplay.svelte";
   import GameInfoLine from "./DisplayLine.svelte";
-  import { cardIndex, currentDeck, currentRandom, gameState, secretInfo } from "../../stores";
+  import {
+    cardIndex,
+    currentDeck,
+    currentRandom,
+    gameHash,
+    gameState,
+    secretInfo,
+  } from "../../stores";
 
   let _secretInfo: SecretInfo;
   let _gameState: string = "0";
   let _currentRandom: string = "0";
   let _cardsRemaining: string = "0";
   let _cardIndex: string = "0";
+  let _gameHash: string = "-";
 
   secretInfo.subscribe((value) => {
     _secretInfo = value;
@@ -28,6 +36,11 @@
 
   currentDeck.subscribe((value) => {
     _cardsRemaining = value.length.toString();
+    console.log("🚀 | currentDeck.subscribe | _cardsRemaining:", _cardsRemaining);
+  });
+
+  gameHash.subscribe((value) => {
+    _gameHash = value;
   });
 
   $: lines = [
@@ -37,7 +50,7 @@
     },
     {
       name: "Game Secret",
-      value: "888",
+      value: _gameHash,
     },
     {
       name: "Current Random",

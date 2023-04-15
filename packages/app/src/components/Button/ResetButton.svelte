@@ -1,17 +1,16 @@
 <script lang="ts">
-  import { currentDeck, defaultDeck, gameState, handInfo } from "../../stores";
+  import { currentDeck, gameState, handInfo } from "../../stores";
+  import { defaultDeck } from "../../constants";
   import type { Card, HandInfo } from "../../types";
-
-  let _maxGameStates: number;
-  let _gameState: number;
-  let _handState: HandInfo;
-  let _currentDeck: Card[];
-  let _cardIndex: number;
-  let _currentRandom: number;
 
   function handleClick() {
     console.log("Button clicked");
-    currentDeck.set(defaultDeck);
+    console.log(defaultDeck);
+    let newDeck: Card[] = [];
+    for (let item of defaultDeck) {
+      newDeck.push(item);
+    }
+    currentDeck.update(() => newDeck);
     handInfo.set({} as HandInfo);
     gameState.set(0);
   }

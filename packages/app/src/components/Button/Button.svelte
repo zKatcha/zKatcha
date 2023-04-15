@@ -3,12 +3,14 @@
     cardIndex,
     currentDeck,
     currentRandom,
+    gameHash,
     gameState,
     handInfo,
     maxGameStates,
     secretInfo,
   } from "../../stores";
   import type { Card, HandInfo, SecretInfo } from "../../types";
+  import { defaultDeck } from "../../constants";
 
   import { Field, Proof, SelfProof, isReady } from "snarkyjs";
   import { ethers } from "ethers";
@@ -81,7 +83,7 @@
     let newHandState: HandInfo;
     let newSecretState: SecretInfo;
     let newCard;
-    if (_gameState > 0) {
+    if (_gameState > 6) {
       newCard = getCard();
     }
 
@@ -93,59 +95,92 @@
         player1: { secret: secret.toString(), hash: hash.toString() },
       };
       secretInfo.set(newSecretState);
-    }
-
-    if (_gameState == 1) {
+    } else if (_gameState == 2) {
+      let secret = generateUserSecret();
+      let hash = await generateHash(secret);
+      newSecretState = {
+        ..._secretState,
+        player2: { secret: secret.toString(), hash: hash.toString() },
+      };
+      secretInfo.set(newSecretState);
+    } else if (_gameState == 3) {
+      let secret = generateUserSecret();
+      let hash = await generateHash(secret);
+      newSecretState = {
+        ..._secretState,
+        player3: { secret: secret.toString(), hash: hash.toString() },
+      };
+      secretInfo.set(newSecretState);
+    } else if (_gameState == 4) {
+      let secret = generateUserSecret();
+      let hash = await generateHash(secret);
+      newSecretState = {
+        ..._secretState,
+        player4: { secret: secret.toString(), hash: hash.toString() },
+      };
+      secretInfo.set(newSecretState);
+    } else if (_gameState == 5) {
+      let secret = generateUserSecret();
+      let hash = await generateHash(secret);
+      newSecretState = {
+        ..._secretState,
+        dealer: { secret: secret.toString(), hash: hash.toString() },
+      };
+      secretInfo.set(newSecretState);
+    } else if (_gameState == 6) {
+      console.log("INITIALIZE GAME");
+      gameHash.set(ethers.utils.keccak256(ethers.utils.toUtf8Bytes("LOL")));
+    } else if (_gameState == 7) {
       newHandState = {
         ..._handState,
         player1: { card1: newCard },
       };
-    } else if (_gameState == 2) {
+    } else if (_gameState == 8) {
       newHandState = {
         ..._handState,
         player2: { card1: newCard },
       };
-    } else if (_gameState == 3) {
+    } else if (_gameState == 9) {
       newHandState = {
         ..._handState,
         player3: { card1: newCard },
       };
-    } else if (_gameState == 4) {
+    } else if (_gameState == 10) {
       newHandState = {
         ..._handState,
         player4: { card1: newCard },
       };
-    } else if (_gameState == 5) {
+    } else if (_gameState == 11) {
       newHandState = {
         ..._handState,
         player1: { ..._handState.player1, card2: newCard },
       };
-    } else if (_gameState == 6) {
+    } else if (_gameState == 12) {
       newHandState = {
         ..._handState,
         player2: { ..._handState.player2, card2: newCard },
       };
-    } else if (_gameState == 7) {
+    } else if (_gameState == 13) {
       newHandState = {
         ..._handState,
         player3: { ..._handState.player3, card2: newCard },
       };
-    } else if (_gameState == 8) {
+    } else if (_gameState == 14) {
       newHandState = {
         ..._handState,
         player4: { ..._handState.player4, card2: newCard },
       };
-    } else if (_gameState == 9) {
+    } else if (_gameState == 15) {
       newHandState = {
         ..._handState,
         dealer: { card1: newCard },
       };
-    } else if (_gameState == 10) {
+    } else if (_gameState == 16) {
       newHandState = {
         ..._handState,
         dealer: { ..._handState.dealer, card2: newCard },
       };
-    } else if (_gameState == 11) {
+    } else if (_gameState == 17) {
       newHandState = {
         ..._handState,
         dealer: {
@@ -153,7 +188,7 @@
           card3: newCard,
         },
       };
-    } else if (_gameState == 12) {
+    } else if (_gameState == 18) {
       newHandState = {
         ..._handState,
         dealer: {
@@ -161,7 +196,7 @@
           card4: newCard,
         },
       };
-    } else if (_gameState == 13) {
+    } else if (_gameState == 19) {
       newHandState = {
         ..._handState,
         dealer: {
@@ -171,9 +206,13 @@
       };
     } else {
       newHandState = {} as HandInfo;
+      let newDeck: Card[] = [];
+      for (let item of defaultDeck) {
+        newDeck.push(item);
+      }
+      currentDeck.update(() => newDeck);
     }
-
-    handInfo.set(newHandState);
+    if (newHandState) handInfo.set(newHandState);
   });
 
   handInfo.subscribe((value) => {

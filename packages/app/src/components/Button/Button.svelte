@@ -60,9 +60,13 @@
     return hash;
   }
 
+  function getRandom() {
+    return Math.floor(Math.random() * 100);
+  }
+
   function getCard(): Card {
     // Generate Random Number
-    let _randomNumber = Math.floor(Math.random() * 100);
+    let _randomNumber = getRandom();
     currentRandom.set(_randomNumber);
     _cardIndex = _randomNumber % _currentDeck.length;
     cardIndex.set(_cardIndex);

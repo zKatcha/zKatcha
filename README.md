@@ -5,7 +5,7 @@
 Decentralized Verifiable Randomness using MINA Protocol
 
 🖌️ UI/UX Design: 
-<https://www.figma.com/file/CD0iVnhs9zOc3JG7PgNBYN/zKatcha>
+<https://www.figma.com/file/Kbaulf0J16yCStpZMMR62s/zKatcha-(Copy)>
 
 🖥️ Monorepo: <https://github.com/zKatcha/zKatcha>
 

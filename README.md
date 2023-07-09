@@ -1,8 +1,8 @@
 <p align="center">
-<img src="docs/Logo.png" width=400/>
+<img src="minamal-vrf.png" width=400/>
 
 <p align="center">
-1 Tap Crypto Transactions
+Decentralized Verifiable Randomness using MINA Protocol
 
 🖌️ UI/UX Design: 
 <https://www.figma.com/file/CD0iVnhs9zOc3JG7PgNBYN/zKatcha>
